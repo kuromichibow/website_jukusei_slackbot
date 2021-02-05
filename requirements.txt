@@ -31,7 +31,6 @@ jupyter-core==4.6.3
 jupyterlab-pygments==0.1.2
 jupyterlab-server==1.2.0
 lazy-object-proxy==1.4.3
-libxml2-python==2.9.10
 MarkupSafe==1.1.1
 mccabe==0.6.1
 mistune==0.8.4
