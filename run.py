@@ -6,6 +6,7 @@ from config import config, update_recent_article
 from urllib.parse import urljoin
 import slackweb
 import ssl
+import os
 
 url = "https://www.keio.ac.jp/ja/news/2021/"
 html = request.urlopen(url)
@@ -44,6 +45,7 @@ if article_list == []:
     article_list.append("更新記事はありません")
 
 if __name__ == "__main__":
-    slack = slackweb.Slack(url=config['slack_info']['in_webhook_url'])
+    token = os.environ['SLACKBOT_API_TOKEN']
+    slack = slackweb.Slack(url=token)
     for feed in article_list:
         slack.notify(text=feed)
