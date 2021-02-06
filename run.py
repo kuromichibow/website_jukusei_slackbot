@@ -7,6 +7,8 @@ from urllib.parse import urljoin
 import slackweb
 import ssl
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 url = "https://www.keio.ac.jp/ja/news/2021/"
 html = request.urlopen(url)
