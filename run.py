@@ -33,7 +33,7 @@ formatted_yesterday = datetime.strftime(yesterday, '%Y/%m/%d')
 
 top_articles_yesterday = [s for s in top_articles if formatted_yesterday in s]
 
-print(top_articles_yesterday)
+# print(top_articles_yesterday)
 
 if top_articles_yesterday == []:
     top_articles_yesterday.append("更新記事はありません")
