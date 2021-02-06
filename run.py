@@ -2,10 +2,10 @@
 
 from urllib import request
 from bs4 import BeautifulSoup
-from config import config, update_recent_article
 from urllib.parse import urljoin
 import slackweb
 import ssl
+from datetime import datetime ,timedelta
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -27,27 +27,19 @@ for item in infoItem:
 
 # print(top_articles)
 
-recent_article = config['web_info']['recent_article']
+today = datetime.today()
+yesterday = today - timedelta(days=1)
+formatted_yesterday = datetime.strftime(yesterday, '%Y/%m/%d')
 
-# print(recent_article)
+top_articles_yesterday = [s for s in top_articles if formatted_yesterday in s]
 
-article_list = []
-update_start = False
+print(top_articles_yesterday)
 
-for news in reversed(top_articles):
-    if update_start:
-        article_list.append(news)
-        continue
-    if news == recent_article:
-        update_start = True
-
-update_recent_article(news)
-
-if article_list == []:
-    article_list.append("更新記事はありません")
+if top_articles_yesterday == []:
+    top_articles_yesterday.append("更新記事はありません")
 
 if __name__ == "__main__":
     token = os.environ['SLACKBOT_API_TOKEN']
     slack = slackweb.Slack(url=token)
-    for feed in article_list:
+    for feed in top_articles_yesterday:
         slack.notify(text=feed)
